@@ -34,6 +34,7 @@ gem 'devise'
 gem 'carrierwave'
 gem 'ffaker'
 gem 'bootstrap'
+gem 'rest-client'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
