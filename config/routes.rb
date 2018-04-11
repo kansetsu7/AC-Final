@@ -6,4 +6,20 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments, only: [:index, :create, :delete]
   end
+
+  resources :users do
+    member do
+      get :posts
+      get :comments
+      get :collects
+    end
+  end
+
+  resources :followships, only: [:create, :destroy]
+
+  namespace :admin do
+    root "categories#index"
+    resources :categories
+    resources :users
+  end
 end
