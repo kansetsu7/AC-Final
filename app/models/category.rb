@@ -1,4 +1,4 @@
 class Category < ApplicationRecord
   has_many :tags
-  has_many :posts, through: :tag
+  has_many :posts, through: :tags
 end
