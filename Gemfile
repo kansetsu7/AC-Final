@@ -37,7 +37,7 @@ gem 'bootstrap'
 gem 'jquery-rails'
 gem 'rest-client'
 gem 'kaminari'
-gem "font-awesome-rails"
+gem "font-awesome-sass"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
