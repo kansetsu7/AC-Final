@@ -12,5 +12,6 @@ User.create(
   name: "=BOSS=",
   password: "12345678",
   intro: "Who's your daddy!",
-  role: "admin"
+  role: "admin",
+  avatar: FFaker::Avatar.image
 )

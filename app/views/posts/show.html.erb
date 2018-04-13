@@ -1,0 +1,23 @@
+<div class="title-bar">
+  <h2><%= @post.title %></h2>
+</div>
+<div class="row">
+  <div class="col-sm-3 avatar-col">
+    <div class="avatar-box"><%= image_tag(@post.user.avatar, class: "center avatar") %></div>
+  </div>
+  <div class="col-sm-9 content-col">
+    <div class="img-block"><%= image_tag @post.image, class: 'post-image' %></div>
+    <div><%= @post.content %></div>
+  </div>
+</div>
+
+<% @post.comments.each do |comment| %>
+  <div class="row">
+    <div class="col-sm-3 avatar-col">
+      <div class="avatar-box"><%= image_tag(comment.user.avatar, class: "center avatar") %></div>
+    </div>
+    <div class="col-sm-9 content-col">
+      <div><%= comment.content %></div>
+    </div>
+  </div>
+<% end %>

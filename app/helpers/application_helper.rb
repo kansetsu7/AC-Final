@@ -1,7 +1,7 @@
 module ApplicationHelper
 
   def show_user_mail(user)
-    user.role == 'admin' ? user.mail + '(Admin)' : user.mail
+    user.role == 'admin' ? user.email + '(Admin)' : user.email
   end
 
   def sortable(column, title = nil)

@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
+  before_action :set_post, except: [:index]
   helper_method :sort_column, :sort_direction, :current_title
 
   def index
@@ -14,7 +15,15 @@ class PostsController < ApplicationController
     @current_direction = sort_direction
   end
 
+  def show
+    
+  end
+
   private
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
 
   def sort_column
     case params[:sort]
