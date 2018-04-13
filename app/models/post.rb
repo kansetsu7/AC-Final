@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  mount_uploader :image, PostImageUploader
+  # mount_uploader :image, PostImageUploader
   belongs_to :user
   has_many :tags
   has_many :categories, through: :tags, source: :category

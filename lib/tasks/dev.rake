@@ -28,21 +28,24 @@ namespace :dev do
       content: FFaker::Lorem.paragraph,
       status: 'draft',
       title: FFaker::Lorem.phrase,
-      authority: 'self'
+      authority: 'self',
+      image: FFaker::Avatar.image
      )
      2.times do
        u.posts.create!(
         content: FFaker::Lorem.paragraph,
         status: 'published',
         title: FFaker::Lorem.phrase,
-        authority: 'all'
+        authority: 'all',
+        image: FFaker::Avatar.image
        )
 
        u.posts.create!(
         content: FFaker::Lorem.paragraph,
         status: 'published',
         title: FFaker::Lorem.phrase,
-        authority: 'friends'
+        authority: 'friends',
+        image: FFaker::Avatar.image
        )
      end        
     end
