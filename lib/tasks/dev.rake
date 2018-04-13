@@ -54,7 +54,7 @@ namespace :dev do
     Comment.destroy_all
     puts "creating fake comments..."
     Post.all.each do |p|
-      3.times do
+      rand(1..5).times do
         p.comments.create!(
           content: FFaker::Lorem.paragraph,
           user: User.all.sample
@@ -70,7 +70,7 @@ namespace :dev do
     puts "creating fake views..."
     Post.all.each do |p|
       @users = User.all.shuffle
-      2.times do
+      rand(0..5).times do
         p.views.create!(
           user: @users.pop
         )
@@ -164,6 +164,12 @@ namespace :dev do
     Friendship.destroy(duplicated_friendships) # delete duplicated firendships
     puts "#{Friendship.where(status: 'confirmed').count} friendship are confirmed "
   end 
+
+  task test: :environment do
+    posts = Post.includes(:comments).all.order('comments.created_at asc')
+    puts posts.first.inspect
+    puts posts.last.inspect
+  end
 
   #fake all data
   task fake_all: :environment do
