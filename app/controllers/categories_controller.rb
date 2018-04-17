@@ -4,9 +4,9 @@ class CategoriesController < ApplicationController
 
   def show
     if sort_column == 'latest_time'
-      @posts = @category.posts.includes('comments').order('comments.created_at '+ sort_direction).page(params[:page]).per(20) 
+      @posts = @category.posts.where(status: 'Published').includes('comments').order('comments.created_at '+ sort_direction).page(params[:page]).per(20) 
     else
-      @posts = @category.posts.order(sort_column + ' ' + sort_direction).page(params[:page]).per(20) 
+      @posts = @category.posts.where(status: 'Published').order(sort_column + ' ' + sort_direction).page(params[:page]).per(20) 
     end
     @categories = Category.all
     @active_name = @category.name  

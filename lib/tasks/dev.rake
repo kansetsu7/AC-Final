@@ -35,27 +35,27 @@ namespace :dev do
     User.all.each do |u|
      u.posts.create!(
       content: FFaker::Lorem.paragraph,
-      status: 'draft',
+      status: 'Draft',
       title: FFaker::Lorem.phrase,
-      authority: 'self',
+      authority: 'Self',
       image: FFaker::Avatar.image,
       category_ids: (1...10).to_a.shuffle.take(rand(1..5))
      )
      2.times do
        u.posts.create!(
         content: FFaker::Lorem.paragraph,
-        status: 'published',
+        status: 'Published',
         title: FFaker::Lorem.phrase,
-        authority: 'all',
+        authority: 'All',
         image: FFaker::Avatar.image,
         category_ids: (1...10).to_a.shuffle.take(rand(1..5))
        )
 
        u.posts.create!(
         content: FFaker::Lorem.paragraph,
-        status: 'published',
+        status: 'Published',
         title: FFaker::Lorem.phrase,
-        authority: 'friends',
+        authority: 'Friends',
         image: FFaker::Avatar.image,
         category_ids: (1...10).to_a.shuffle.take(rand(1..5))
        )

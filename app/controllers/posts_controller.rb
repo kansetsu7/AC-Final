@@ -5,9 +5,9 @@ class PostsController < ApplicationController
 
   def index
     if sort_column == 'latest_time'
-      @posts = Post.includes('comments').all.order('comments.created_at ' + sort_direction).page(params[:page]).per(20)
+      @posts = Post.includes('comments').where(status: 'Published').order('comments.created_at ' + sort_direction).page(params[:page]).per(20)
     else
-      @posts = Post.all.order(sort_column + ' ' + sort_direction).page(params[:page]).per(20)  
+      @posts = Post.where(status: 'Published').order(sort_column + ' ' + sort_direction).page(params[:page]).per(20)  
     end
     
     @categories = Category.all
@@ -28,6 +28,7 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
     @post.user = current_user
+    @post.status = 'Published'
     if @post.save
       flash[:notice] = 'post was successfully created'
       redirect_to post_path(@post)
