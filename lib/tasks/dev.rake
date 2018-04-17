@@ -19,6 +19,15 @@ namespace :dev do
     puts "now you have #{User.count} user data"
   end 
 
+  # fake category
+  task fake_category: :environment do
+    10.times do
+      Category.create!(
+        name: FFaker::Skill.unique.tech_skill
+      )
+    end
+  end
+
   #fake post
   task fake_post: :environment do
     Post.destroy_all
@@ -29,7 +38,8 @@ namespace :dev do
       status: 'draft',
       title: FFaker::Lorem.phrase,
       authority: 'self',
-      image: FFaker::Avatar.image
+      image: FFaker::Avatar.image,
+      category_ids: (1...10).to_a.shuffle.take(rand(1..5))
      )
      2.times do
        u.posts.create!(
@@ -37,7 +47,8 @@ namespace :dev do
         status: 'published',
         title: FFaker::Lorem.phrase,
         authority: 'all',
-        image: FFaker::Avatar.image
+        image: FFaker::Avatar.image,
+        category_ids: (1...10).to_a.shuffle.take(rand(1..5))
        )
 
        u.posts.create!(
@@ -45,7 +56,8 @@ namespace :dev do
         status: 'published',
         title: FFaker::Lorem.phrase,
         authority: 'friends',
-        image: FFaker::Avatar.image
+        image: FFaker::Avatar.image,
+        category_ids: (1...10).to_a.shuffle.take(rand(1..5))
        )
      end        
     end
@@ -82,35 +94,10 @@ namespace :dev do
     puts "now you have #{View.count} views"
   end
 
-  # fake category
-  task fake_category: :environment do
-    10.times do
-      Category.create!(
-        name: FFaker::Skill.unique.tech_skill
-      )
-    end
-
-  end
-
-  # fake tag
-  task fake_tag: :environment do
-    Tag.destroy_all
-    puts "creating fake tags..."
-    Post.all.each do |p|
-      @categories = Category.all.shuffle
-      3.times do
-        p.tags.create!(
-          category: @categories.pop
-        )
-      end
-    end
-    puts "now you have #{Tag.count} tags"
-  end
-
   # fake collect
   task fake_collect: :environment do
     Collect.destroy_all
-    puts "creating fake tags..."
+    puts "creating fake collects..."
     User.all.each do |u|
       @posts = Post.all.shuffle
       3.times do
@@ -180,11 +167,10 @@ namespace :dev do
     Rake::Task['db:migrate'].execute
     Rake::Task['db:seed'].execute
     Rake::Task['dev:fake_user'].execute
+    Rake::Task['dev:fake_category'].execute
     Rake::Task['dev:fake_post'].execute
     Rake::Task['dev:fake_comment'].execute
     Rake::Task['dev:fake_view'].execute
-    Rake::Task['dev:fake_category'].execute
-    Rake::Task['dev:fake_tag'].execute
     Rake::Task['dev:fake_collect'].execute
     Rake::Task['dev:fake_friendship'].execute
   end
