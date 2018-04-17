@@ -1,0 +1,19 @@
+<div class="post-form">
+  <%= form_for @post do |f| %>
+    <%= f.text_field :title, class: 'form-control' %>
+    <%= f.text_area :content, class: 'form-control' %>
+    <br>
+    <%= f.file_field :image %>
+    <div id="authority">
+      Who can see <%= f.collection_radio_buttons :authority, %w[All Friend Myself], :to_s, :to_s %>
+    </div>
+    <div id="category">
+      Category <%= f.collection_check_boxes :category_ids, Category.all, :id, :name %>
+    </div>
+    <div class="status">
+      <span>Status:</span>
+      <%= @post.status %>
+    </div>
+    <%= f.submit 'Submit' %>
+  <% end %>
+</div>

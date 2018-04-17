@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :set_post, except: [:index]
+  before_action :set_post, only: :show
   helper_method :sort_column, :sort_direction, :current_title
 
   def index
@@ -17,6 +17,29 @@ class PostsController < ApplicationController
 
   def show
     @comment = Comment.new
+  end
+
+  def new
+    @post = Post.new
+    @post.status = 'Draft'
+    @category = Category.all
+  end
+
+  def create
+    @post = Post.new(post_params)
+    @post.user = current_user
+    if @post.save
+      flash[:notice] = 'post was successfully created'
+      redirect_to post_path(@post)
+    else
+      flash.now[:alert] = 'post was failed to create: ' + @post.errors.full_messages.join("<br>").html_safe
+      
+      @post = Post.new
+      @post.status = 'Draft'
+      @category = Category.all
+      render :new
+    end
+
   end
 
   private
@@ -47,6 +70,10 @@ class PostsController < ApplicationController
 
   def current_title
     ['Replies count', 'Last replied at', 'Viewed count'].include?(params[:sort]) ? params[:sort] : 'id'
+  end
+
+  def post_params
+    params.require(:post).permit(:title, :content, :status, :authority, :image, category_ids:[])
   end
 
 end

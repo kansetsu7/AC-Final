@@ -6,7 +6,7 @@
     <div class="avatar-box"><%= image_tag(@post.user.avatar, class: "center avatar") %></div>
   </div>
   <div class="col-sm-9 content-col">
-    <div class="img-block"><%= image_tag @post.image, class: 'post-image' %></div>
+    <div class="img-block"><%= image_tag @post.image, class: 'post-image' unless @post.image.nil? %></div>
     <div><%= @post.content %></div>
   </div>
 </div>
