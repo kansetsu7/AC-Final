@@ -13,7 +13,8 @@ namespace :dev do
         name: "user#{i}",
         password: '000000',
         # avatar: data["photo"]
-        avatar: FFaker::Avatar.image
+        avatar: FFaker::Avatar.image,
+        intro: FFaker::Lorem.paragraph
       )      
     end
     puts "now you have #{User.count} user data"
