@@ -1,7 +1,7 @@
-<div class="title-bar">
-  <h2><%= @post.title %></h2>
+<div class="title-bar bg-light-gray">
+  <h3><%= @post.title %></h3>
 </div>
-<div class="row">
+<div class="row post-row">
   <div class="col-sm-2 avatar-col">
     <%= link_to user_path( @post.user), class: 'user-link' do %>
       <div class="avatar-box text-center">
@@ -10,14 +10,14 @@
       </div>
     <% end %>
   </div>
-  <div class="col-sm-10 content-col">
-    <div class="img-block"><%= image_tag @post.image, class: 'post-image' unless @post.image.nil? %></div>
+  <div class="col-sm-9">
+    <div class="img-block"><%= image_tag @post.image, class: 'post-image' unless @post.image.nil? %></div><br>
     <div><%= @post.content %></div>
   </div>
 </div>
 
 <% @post.comments.each do |comment| %>
-  <div class="row">
+  <div class="row post-row bg-light-gray">
     <div class="col-sm-2 avatar-col">
       <%= link_to user_path(comment.user), class: 'user-link' do %>
         <div class="avatar-box text-center">
@@ -26,8 +26,8 @@
         </div>
       <% end %>
     </div>
-    <div class="col-sm-10 content-col">
-      <div><%= comment.content %></div>
+    <div class="col-sm-9">
+      <div class="comments"><%= comment.content %></div>
     </div>
   </div>
 <% end %>
@@ -35,9 +35,9 @@
 <div class="row justify-content-sm-center">
   <div class="col-sm-10">
     <%= form_for [@post, @comment] do |f| %>
-      <%= f.text_area :content, placeholder: "Leave a message", class: "form-control" %>
+      <%= f.text_area :content, placeholder: "add comment", class: "form-control bg-light-gray" %>
       <br>
-      <%= f.submit 'Submit'%>
+      <%= f.submit 'Submit', class: 'round-white-btn' %>
     <% end %>
   </div>
 </div>
