@@ -19,14 +19,14 @@
       <tbody>
         <% @posts.each do |post| %>
           <tr>
-            <td><%= post.replies_count %></td>
+            <td class="replies-count text-center"><span class="bg-light-gray"><%= post.replies_count %></span></td>
             <td><%= link_to post.title, post_path(post) %></td>
             <td><%= post.comments.latest_time %></td>
-            <td><%= post.viewed_count %></td>
+            <td class="text-center"><%= icon('fas', 'eye') %> <%= post.viewed_count %></td>
           </tr>  
         <% end %>
       </tbody>
     </table>
-    <div><%= paginate @posts %></div>
+    <%= paginate @posts %>
   </div>
 </div>

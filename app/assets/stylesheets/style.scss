@@ -24,3 +24,21 @@
 .post-image {
   max-height:  300px;
 }
+
+.bg-light-gray {
+  background-color: #eeeeee;
+}
+
+.header-block h2 {
+  vertical-align: middle;
+  display: inline-block;
+  height: 6rem;
+  line-height: 6rem;
+  padding-left: 3rem;
+}
+
+.replies-count span {
+  border: 1px solid #dddddd;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+}
