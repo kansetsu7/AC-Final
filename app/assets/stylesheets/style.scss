@@ -14,11 +14,7 @@
 
 .avatar {
   max-height: 150px;
-}
-
-.center {
-  margin-left: auto;
-  margin-right: auto;
+  display: block;
 }
 
 .post-image {
@@ -41,4 +37,8 @@
   border: 1px solid #dddddd;
   padding-right: 0.5rem;
   padding-left: 0.5rem;
+}
+
+.user-link span {
+  color: black;
 }
