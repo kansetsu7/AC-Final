@@ -15,12 +15,13 @@ Rails.application.routes.draw do
 
   resources :categories, only: :show
 
-  resources :users do
+  resources :users, except: :index do
 
     member do
       get :posts
       get :comments
       get :collects
+      get :drafts
     end
 
   end

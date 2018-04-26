@@ -10,8 +10,8 @@
   border-bottom: 1px solid black;
 }
 
-.avatar {
-  max-height: 150px;
+.post-avatar {
+  max-height: 100px;
   display: block;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .replies-count span {
-  border: 1px solid #dddddd;
+  border: 1px solid #cdcdcd;
   padding-right: 0.5rem;
   padding-left: 0.5rem;
 }
@@ -56,4 +56,43 @@
 
 .comments {
   padding-top: 1rem;
+}
+
+.user-avatar {
+  max-height: 120px;
+  display: block;
+}
+
+.top-pad60 {
+  padding-top: 60px;
+}
+
+.user-name {
+  height: 120px;
+}
+
+.lm-50 {
+  margin-left: 50px;
+}
+
+.profile-tab a.nav-link.active {
+  border-width: 1px 1px 0 1px;
+  border-color: #cdcdcd;
+  background-color: #eeeeee;
+}
+
+.profile-tab a.nav-link {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  color: black;
+}
+
+.user-post-row {
+  border-bottom: 1px solid #cdcdcd;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+span.post-title a {
+  color: black;
 }

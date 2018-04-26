@@ -5,4 +5,8 @@ class Post < ApplicationRecord
   has_many :comments
   has_many :replied_users, through: :comments, source: :user
   has_many :views
+
+  def create_date
+    self.created_at.strftime('%F')
+  end
 end

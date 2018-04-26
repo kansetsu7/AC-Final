@@ -1,0 +1,16 @@
+<%= render partial: "shared/user_page", locals: { user: @user, active_tab: 'post'} %>
+<% @posts.each do |post| %>
+  <div class="row user-post-row bg-light-gray">
+    <div class="col-sm-7">
+      <span class="lm-50 post-title"><%= link_to post.title, post_path(post) %></span>
+    </div>
+    <div class="col-sm-2">
+      <span><%= post.status %></span>
+    </div>
+    <div class="col-sm-3">
+      <span><%= post.create_date %> </span> 
+    </div>
+  </div>
+<% end %>
+<br>
+<%= link_to 'New post', new_post_path, class: 'btn btn-outline-dark lm-50', role: 'button' %>

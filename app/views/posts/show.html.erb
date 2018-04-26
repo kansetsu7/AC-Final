@@ -2,15 +2,15 @@
   <h3><%= @post.title %></h3>
 </div>
 <div class="row post-row">
-  <div class="col-sm-2 avatar-col">
-    <%= link_to user_path( @post.user), class: 'user-link' do %>
+  <div class="col-sm-3 avatar-col">
+    <%= link_to posts_user_path(@post.user), class: 'user-link' do %>
       <div class="avatar-box text-center">
-        <%= image_tag(@post.user.avatar, class: "avatar mx-auto") %>
+        <%= image_tag(@post.user.avatar, class: "post-avatar mx-auto") %>
         <span><%= @post.user.name %></span>
       </div>
     <% end %>
   </div>
-  <div class="col-sm-9">
+  <div class="col-sm-8">
     <div class="img-block"><%= image_tag @post.image, class: 'post-image' unless @post.image.nil? %></div><br>
     <div><%= @post.content %></div>
   </div>
@@ -18,15 +18,15 @@
 
 <% @post.comments.each do |comment| %>
   <div class="row post-row bg-light-gray">
-    <div class="col-sm-2 avatar-col">
-      <%= link_to user_path(comment.user), class: 'user-link' do %>
+    <div class="col-sm-3 avatar-col">
+      <%= link_to posts_user_path(comment.user), class: 'user-link' do %>
         <div class="avatar-box text-center">
-          <%= image_tag(comment.user.avatar, class: "avatar mx-auto") %>
+          <%= image_tag(comment.user.avatar, class: "post-avatar mx-auto") %>
           <span><%= comment.user.name %></span>
         </div>
       <% end %>
     </div>
-    <div class="col-sm-9">
+    <div class="col-sm-8">
       <div class="comments"><%= comment.content %></div>
     </div>
   </div>

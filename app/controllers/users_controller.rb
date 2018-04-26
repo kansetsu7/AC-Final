@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: :show
+  before_action :set_user, only: :posts
 
-  def show
-    
+  def posts
+    @posts = @user.posts.where(status: 'Published')
   end
 
   private

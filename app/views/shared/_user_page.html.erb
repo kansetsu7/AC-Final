@@ -1,0 +1,37 @@
+<div class="row bg-light-gray">
+  <div class="col-sm-3">
+    <div class="top-pad60">
+      <%= image_tag(user.avatar, class: "user-avatar mx-auto") %>
+    </div>
+    <div class="user-name align-top text-center">
+      <span><%= user.name %></span>
+    </div>
+  </div>
+  <div class="col-sm-8">
+    <div class="top-pad60"><%= user.intro %></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-12">
+    <br>
+    <ul class="nav nav-tabs profile-tab">
+      <li class="nav-item lm-50">
+        <%= link_to 'My Post', posts_user_path(user), class: "nav-link #{'active' if active_tab == 'post'}" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'My Comment', comments_user_path(user), class: "nav-link #{'active' if active_tab == 'comment'}" %>
+      </li>
+      <% if user == current_user %>
+        <li class="nav-item">
+          <%= link_to 'My Collect', collects_user_path(user), class: "nav-link #{'active' if active_tab == 'collect'}" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'My Draft', drafts_user_path(user), class: "nav-link #{'active' if active_tab == 'draft'}" %>
+        </li>
+        <li class="nav-item">
+          <%#= link_to 'My Friend', collects_user_path(user), class: "nav-link #{'active' if active_tab == 'friend'}" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
