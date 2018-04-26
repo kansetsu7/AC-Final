@@ -1,5 +1,11 @@
 class CommentsController < ApplicationController
-  before_action :set_post ,only: [:create, :destroy]
+  before_action :set_post ,only: [:create]
+  before_action :set_comment ,only: [:update, :destroy]
+  before_action :set_user ,only: [:index, :update]
+
+  def index
+    @comments = @user.comments
+  end
 
   def create
     @comment = @post.comments.build(comment_params)
@@ -8,10 +14,39 @@ class CommentsController < ApplicationController
     redirect_to post_path(@post)
   end
 
+  def update
+    if @comment.update(comment_params)
+      flash[:notice] = "comment was successfully update"
+      redirect_to user_comments_path(@user)
+    else
+      render :index
+      flash[:alert] = 'comment was failed to update'
+    end
+  end
+
+  def destroy
+    if @comment.user == current_user
+      @comment.destroy
+      flash[:alert] = 'comment was deleted!'
+    else
+      flash[:alert] = "you can't delete other's comment"
+    end
+    
+    redirect_back(fallback_location: root_path)
+  end
+
   private
 
   def set_post
     @post = Post.find(params[:post_id])
+  end
+
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
+
+  def set_user
+    @user = User.find(params[:user_id])
   end
 
   def comment_params

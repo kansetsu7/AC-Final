@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root 'posts#index'
   resources :posts do
 
-    resources :comments, only: [:index, :create, :delete]
+    resources :comments, only: [:create]
 
     collection do
       get :feeds
@@ -14,12 +14,14 @@ Rails.application.routes.draw do
   end
 
   resources :categories, only: :show
+  resources :comments, only: [:destroy]
 
   resources :users, except: :index do
 
+    resources :comments, only: [:index, :update]
+
     member do
       get :posts
-      get :comments
       get :collects
       get :drafts
     end

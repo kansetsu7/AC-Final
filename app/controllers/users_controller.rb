@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: :posts
+  before_action :set_user, only: [:posts]
 
   def posts
     @posts = @user.posts.where(status: 'Published')

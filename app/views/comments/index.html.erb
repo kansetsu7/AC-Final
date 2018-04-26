@@ -1,0 +1,25 @@
+<%= render partial: "shared/user_page", locals: { user: @user, active_tab: 'comment'} %>
+<% @comments.each do |comment| %>
+  <div class="row user-post-row bg-light-gray">
+    <div class="col-sm-7">
+      <span class="lm-65 post-title"><%= link_to comment.post.title, post_path(comment.post) %></span>
+      <% if @user == current_user %>
+        <div class="lm-65">
+          <%= form_for [@user, comment] do |f| %>
+            <%= f.text_area :content, placeholder: "add comment", class: "form-control" %>
+            <br>
+            <%= f.submit 'Submit', class: 'round-white-btn' %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-sm-2">
+      <% if @user == current_user %>
+        <%= link_to comment_path(comment), method: :delete, class: 'btn btn-danger' do %>
+          <%= icon('fas', 'times') %>
+        <% end %>
+      <% end %>      
+    </div> 
+  </div>
+<% end %>
+<br>

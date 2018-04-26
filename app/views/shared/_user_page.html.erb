@@ -19,7 +19,7 @@
         <%= link_to 'My Post', posts_user_path(user), class: "nav-link #{'active' if active_tab == 'post'}" %>
       </li>
       <li class="nav-item">
-        <%= link_to 'My Comment', comments_user_path(user), class: "nav-link #{'active' if active_tab == 'comment'}" %>
+        <%= link_to 'My Comment', user_comments_path(user), class: "nav-link #{'active' if active_tab == 'comment'}" %>
       </li>
       <% if user == current_user %>
         <li class="nav-item">
