@@ -15,14 +15,15 @@ Rails.application.routes.draw do
 
   resources :categories, only: :show
   resources :comments, only: [:destroy]
+  resources :collects, only: [:destroy]
 
   resources :users, except: :index do
 
     resources :comments, only: [:index, :update]
+    resources :collects, only: [:index]
 
     member do
       get :posts
-      get :collects
       get :drafts
     end
 

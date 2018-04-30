@@ -23,7 +23,7 @@
       </li>
       <% if user == current_user %>
         <li class="nav-item">
-          <%= link_to 'My Collect', collects_user_path(user), class: "nav-link #{'active' if active_tab == 'collect'}" %>
+          <%= link_to 'My Collect', user_collects_path(user), class: "nav-link #{'active' if active_tab == 'collect'}" %>
         </li>
         <li class="nav-item">
           <%= link_to 'My Draft', drafts_user_path(user), class: "nav-link #{'active' if active_tab == 'draft'}" %>
