@@ -1,0 +1,12 @@
+<%= render partial: "shared/user_page", locals: { user: @user, active_tab: 'collect'} %>
+<% @collects.each do |collect| %>
+  <div class="row user-post-row bg-light-gray">
+    <div class="col-sm-7">
+      <span class="lm-65 post-title"><%= link_to collect.post.title, post_path(collect.post) %></span>
+    </div>
+    <div class="col-sm-2">
+      <%= link_to 'uncollect', collect_path(collect), method: :delete, class: 'btn btn-danger' if @user == current_user %>    
+    </div> 
+  </div>
+<% end %>
+<br>
