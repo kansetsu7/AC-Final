@@ -17,6 +17,7 @@ class PostsController < ApplicationController
 
   def show
     @comment = Comment.new
+    @collect = current_user.collects.where(post_id: @post.id)
   end
 
   def new

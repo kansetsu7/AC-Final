@@ -1,0 +1,5 @@
+<% if current_user.collected_posts.include?(post) %>
+  <%= link_to 'uncollect', collect_path(collect), method: :delete, remote: true, class: 'btn btn-outline-danger', id: 'delete-collect' %>
+<% else %>
+  <%= link_to 'collect', collects_path(post_id: post), method: :post, remote: true, class: 'btn btn-outline-dark', id: 'create-collect' %>
+<% end %>

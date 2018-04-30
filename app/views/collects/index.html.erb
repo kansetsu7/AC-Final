@@ -5,7 +5,7 @@
       <span class="lm-65 post-title"><%= link_to collect.post.title, post_path(collect.post) %></span>
     </div>
     <div class="col-sm-2">
-      <%= link_to 'uncollect', collect_path(collect), method: :delete, class: 'btn btn-danger' if @user == current_user %>    
+      <%= link_to 'uncollect', collect_path(collect), method: :delete, remote: true, class: 'btn btn-danger', id: 'delete-collect' if @user == current_user %>    
     </div> 
   </div>
 <% end %>

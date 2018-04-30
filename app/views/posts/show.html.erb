@@ -1,5 +1,10 @@
-<div class="title-bar bg-light-gray">
-  <h3><%= @post.title %></h3>
+<div class="row title-bar bg-light-gray">
+  <div class="col-sm-10">
+    <h3><%= @post.title %></h3>
+  </div>
+  <div class="col-sm-2">
+    <%= render partial: "shared/collect_btn", locals: { post: @post, collect: @collect} %>
+  </div>
 </div>
 <div class="row post-row">
   <div class="col-sm-3 avatar-col">
