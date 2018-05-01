@@ -44,6 +44,15 @@ class PostsController < ApplicationController
 
   end
 
+  def feeds
+    @users_count = User.count
+    @posts_count = Post.count
+    @replies_count = Comment.count
+
+    @chatters = User.order('posts_count DESC').limit(10)
+    @popular_posts = Post.order('replies_count DESC').limit(10)
+  end
+
   private
 
   def set_post

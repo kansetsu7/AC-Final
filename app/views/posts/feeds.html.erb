@@ -1,0 +1,55 @@
+<div class="header-block bg-light-gray">
+  <div class="row py-4 justify-content-center">
+    <div class="col-3  text-center">
+      <h3>User</h3>
+    </div>
+    <div class="col-3  text-center">
+      <h3>Post</h3>
+    </div>
+    <div class="col-3  text-center">
+      <h3>Comment</h3>
+    </div>
+  </div>
+  <div class="row py-4 justify-content-center">
+    <div class="col-3 text-center">
+      <span class="black-box"><%= @users_count %></span>
+    </div>
+    <div class="col-3  text-center">
+      <span class="black-box"><%= @posts_count %></span>
+    </div>
+    <div class="col-3  text-center">
+      <span class="black-box"><%= @replies_count %></span>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row justify-content-center">
+  <div class="col-6 col-sm-4 text-center"><h3>Chatterbox</h3></div>
+  <div class="col-6 col-sm-4 text-center"><h3>Most Popular Post</h3></div>
+</div>
+<div class="row justify-content-center">
+  <div class="col-6 col-sm-4">
+    <table class="table">
+      <% @chatters.each_with_index do |user, i| %>
+        <tr>
+          <td><%= "#{i + 1}." %></td>
+          <td><%= link_to user.name, posts_user_path(user) %></td>
+          <td><%= user.posts_count %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <div class="col-6 col-sm-4">
+    <table class="table">
+      <% @popular_posts.each_with_index do |post, i| %>
+        <tr>
+          <td><%= "#{i + 1}." %></td>
+          <td><%= link_to post.title, post_path(post) %></td>
+          <td><%= post.create_date %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+<br>
+
