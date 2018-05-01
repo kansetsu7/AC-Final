@@ -21,7 +21,7 @@
           <tr>
             <td class="replies-count text-center"><span class="bg-light-gray"><%= post.replies_count %></span></td>
             <td><%= link_to post.title, post_path(post) %></td>
-            <td><%= post.comments.latest_time %></td>
+            <td><%= latest_comment_time(post) %></td>
             <td class="text-center"><%= icon('fas', 'eye') %> <%= post.viewed_count %></td>
           </tr>  
         <% end %>

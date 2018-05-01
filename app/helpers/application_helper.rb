@@ -21,4 +21,9 @@ module ApplicationHelper
     end
     # 
   end
+
+  def latest_comment_time(post)
+    puts "post_id: #{post.id}"
+    post.comments == [] ? 'No reply' : post.comments.latest_time
+  end
 end
