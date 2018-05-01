@@ -1,7 +1,7 @@
 class Post < ApplicationRecord
   # mount_uploader :image, PostImageUploader
   before_save :check_title
-  belongs_to :user
+  belongs_to :user, counter_cache: :posts_count
   has_and_belongs_to_many :categories
   has_many :comments
   has_many :replied_users, through: :comments, source: :user
