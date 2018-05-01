@@ -69,7 +69,7 @@ namespace :dev do
   task fake_comment: :environment do
     Comment.destroy_all
     puts "creating fake comments..."
-    Post.all.each do |p|
+    Post.where(status: 'Published').each do |p|
       rand(1..5).times do
         p.comments.create!(
           content: FFaker::Lorem.paragraph,

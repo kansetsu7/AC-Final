@@ -6,6 +6,8 @@ class User < ApplicationRecord
 
   # mount_uploader :avatar, AvatarUploader
   has_many :posts
+  has_many :drafts, -> {where status: 'Draft'}, class_name: "Post"
+  has_many :published_posts, -> {where status: 'Published'}, class_name: "Post"
   has_many :comments
   has_many :commented_posts, through: :comment, source: :post
   has_many :collects

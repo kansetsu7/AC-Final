@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :set_post, only: :show
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column, :sort_direction, :current_title
 
   def index
@@ -22,31 +22,72 @@ class PostsController < ApplicationController
 
   def new
     @post = Post.new
-    @post.status = 'Draft'
     @category = Category.all
+  end
+
+  def edit
+  end
+
+  def update
+    if params[:commit] == "Save Draft"
+      @post.status = 'Draft'
+      notice = 'Draft was successfully saved!'
+    else
+      @post.status = 'Published'
+      notice = 'Post was successfully published!'
+    end
+
+    if @post.update(post_params)
+      flash[:notice] = notice 
+      redirect_to post_path(@post)
+    else
+      flash.now[:alert] = 'failed: ' + @post.errors.full_messages.join("<br>").html_safe
+      
+      set_post
+      # @category = Category.all
+      render :edit
+    end
   end
 
   def create
     @post = Post.new(post_params)
     @post.user = current_user
-    @post.status = 'Published'
+    if params[:commit] == "Save Draft"
+      @post.status = 'Draft'
+      notice = 'Draft was successfully saved!'
+    else
+      @post.status = 'Published'
+      notice = 'Post was successfully published!'
+    end
+
     if @post.save
-      flash[:notice] = 'post was successfully created'
+      flash[:notice] = notice
       redirect_to post_path(@post)
     else
-      flash.now[:alert] = 'post was failed to create: ' + @post.errors.full_messages.join("<br>").html_safe
+      flash.now[:alert] = 'failed: ' + @post.errors.full_messages.join("<br>").html_safe
       
       @post = Post.new
-      @post.status = 'Draft'
       @category = Category.all
       render :new
     end
 
   end
 
+  def destroy
+
+    if @post.user == current_user
+      @post.destroy
+      flash[:alert] = 'post was deleted!'
+    else
+      flash[:alert] = "you can't delete other's post"
+    end
+
+    redirect_back(fallback_location: root_path)
+  end
+
   def feeds
     @users_count = User.count
-    @posts_count = Post.count
+    @posts_count = Post.where(status: 'Published').count
     @replies_count = Comment.count
 
     @chatters = User.order('posts_count DESC').limit(10)

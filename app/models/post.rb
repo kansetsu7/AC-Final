@@ -1,7 +1,9 @@
 class Post < ApplicationRecord
   # mount_uploader :image, PostImageUploader
   before_save :check_title
-  belongs_to :user, counter_cache: :posts_count
+  after_save :update_counter_cache
+  after_destroy :update_counter_cache
+  belongs_to :user
   has_and_belongs_to_many :categories
   has_many :comments
   has_many :replied_users, through: :comments, source: :user
@@ -13,5 +15,10 @@ class Post < ApplicationRecord
 
   def check_title
     self.title = 'No title' if self.title == ''
+  end
+
+  def update_counter_cache
+    self.user.posts_count = self.user.published_posts.count
+    self.user.save
   end
 end
