@@ -7,7 +7,7 @@
   </div>
 </div>
 <div class="row post-row">
-  <div class="col-sm-3 avatar-col">
+  <div class="col-3 avatar-col">
     <%= link_to posts_user_path(@post.user), class: 'user-link' do %>
       <div class="avatar-box text-center">
         <%= image_tag(@post.user.avatar, class: "post-avatar mx-auto") %>
@@ -15,9 +15,19 @@
       </div>
     <% end %>
   </div>
-  <div class="col-sm-8">
-    <div class="img-block"><%= image_tag @post.image, class: 'post-image' unless @post.image.nil? %></div><br>
-    <div><%= @post.content %></div>
+  <div class="col-9">
+    <div class="row">
+      <div class="col-11">
+        <div class="img-block"><%= image_tag @post.image, class: 'post-image' unless @post.image.nil? %></div><br>
+        <div><%= @post.content %></div>
+      </div>
+        <% if @post.user == current_user %>
+          <div class="ml-auto">
+            <%= link_to 'edit', edit_post_path(@post), class: 'btn btn-outline-primary' %>
+            <%= link_to 'delete', post_path(@post), method: :delete, class: 'btn btn-outline-danger' %>
+          </div>
+        <% end %>
+    </div>    
   </div>
 </div>
 
