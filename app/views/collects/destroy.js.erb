@@ -1,0 +1,3 @@
+var html = '<%= j render partial: "shared/collect_btn", locals: { post: @post, collect: @collect} %>'
+
+$('#delete-collect-<%= @collect.id %>').parent().html(html);

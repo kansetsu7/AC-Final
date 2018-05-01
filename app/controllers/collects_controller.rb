@@ -14,14 +14,8 @@ class CollectsController < ApplicationController
   end
 
   def destroy
-    if @collect.user == current_user
-      @collect.destroy
-      flash[:alert] = 'collected!'
-    else
-      flash[:alert] = "you can't uncollect other's collect"
-    end
-    
-    redirect_back(fallback_location: root_path)
+    @post = @collect.post
+    @collect.destroy if @collect.user == current_user
   end
 
   private
