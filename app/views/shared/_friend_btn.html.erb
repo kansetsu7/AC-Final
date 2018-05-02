@@ -1,0 +1,28 @@
+<% unless user == current_user %>
+
+  <% if current_user.friend?(user) %>   <!-- current_user sent friend request -->
+
+    <% if current_user.confirmed_friend?(user) %>
+      <!-- confirmed, current_user can unfriend -->
+      <%= link_to 'Unfriend', friendship_path(user), method: :delete, remote: :true, class: "btn btn-outline-danger text" %>
+    <% else %>
+      <!-- not confirmed, current_user can cancel it -->
+      <%= link_to 'Cancel request', cancel_friendship_path(user), method: :post, remote: :true, class: "btn btn-outline-primary" %>
+    <% end %>
+
+  <% elsif current_user.inverse_friend?(user) %>   <!-- current_user got friend request form target-->
+
+    <% if current_user.confirmed_inverse_friend?(user) %>
+      <!-- confirmed, current_user can unfriend -->
+      <%= link_to 'Unfriend', friendship_path(user), method: :delete, remote: :true, class: "btn btn-outline-danger" %>
+    <% else %>
+      <!-- not confirmed, current_user can accept it -->
+      <%= link_to 'Accept request', accept_friendship_path(user), method: :post, remote: :true, class: "btn btn-outline-primary" %>
+      <%= link_to 'Ignore request', ignore_friendship_path(user), method: :delete, remote: :true, class: "btn btn-outline-primary" %>
+    <% end %>
+
+  <% else %>  <!-- both not in friendships db -->
+    <%= link_to 'Friend', friendships_path(friend_id: user), method: :post, remote: :true, class: "btn btn-outline-primary" %>
+  <% end %>
+
+<% end %>

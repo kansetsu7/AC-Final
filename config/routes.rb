@@ -35,7 +35,14 @@ Rails.application.routes.draw do
 
   end
 
-  resources :followships, only: [:create, :destroy]
+  resources :friendships, only: [:create, :destroy] do
+    member do
+      post :cancel
+      post :accept
+      delete :ignore
+      get :check
+    end
+  end
 
   namespace :admin do
     root "categories#index"

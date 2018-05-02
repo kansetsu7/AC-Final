@@ -7,13 +7,16 @@
   </div>
 </div>
 <div class="row post-row">
-  <div class="col-3 avatar-col">
+  <div class="col-3 avatar-col text-center">
     <%= link_to posts_user_path(@post.user), class: 'user-link' do %>
       <div class="avatar-box text-center">
         <%= image_tag(@post.user.avatar, class: "post-avatar mx-auto") %>
         <span><%= @post.user.name %></span>
       </div>
     <% end %>
+    <div class="friend-btn-<%= @post.user.id %>">
+      <%= render partial: "shared/friend_btn", locals: { user: @post.user} %>
+    </div>
   </div>
   <div class="col-9">
     <div class="row">
@@ -33,13 +36,16 @@
 
 <% @post.comments.each do |comment| %>
   <div class="row post-row bg-light-gray">
-    <div class="col-sm-3 avatar-col">
+    <div class="col-sm-3 avatar-col text-center">
       <%= link_to posts_user_path(comment.user), class: 'user-link' do %>
         <div class="avatar-box text-center">
           <%= image_tag(comment.user.avatar, class: "post-avatar mx-auto") %>
           <span><%= comment.user.name %></span>
         </div>
       <% end %>
+      <div class="friend-btn-<%= comment.user.id %>">
+        <%= render partial: "shared/friend_btn", locals: { user: comment.user} %>
+      </div>
     </div>
     <div class="col-9">
       <div class="row" id="<%= comment.id %>">

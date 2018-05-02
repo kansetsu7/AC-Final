@@ -26,4 +26,25 @@ class User < ApplicationRecord
   has_many :unconfirmed_inverse_friendships, -> {where status: 'unconfirmed'}, class_name: "Friendship", foreign_key: "friend_id"
   has_many :confirmed_inverse_friends, through: :confirmed_inverse_friendships, source: :user
   has_many :unconfirmed_inverse_friends, through: :unconfirmed_inverse_friendships, source: :user
+
+  def friend?(user)
+    self.friends.include?(user)
+  end
+
+  def inverse_friend?(user)
+    self.inverse_friends.include?(user)
+  end
+
+  def confirmed_friend?(user)
+    self.confirmed_friendships.find_by(friend_id: user.id).nil? ? false : true
+  end
+
+  def confirmed_inverse_friend?(user)
+    self.confirmed_inverse_friendships.find_by(user_id: user.id).nil? ? false : true
+  end
+
+  def all_friends()
+    # (self.inverse_friends + self.friends).uniq
+    self.confirmed_friends + self.confirmed_inverse_friends
+  end 
 end
