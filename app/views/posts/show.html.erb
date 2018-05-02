@@ -21,12 +21,12 @@
         <div class="img-block"><%= image_tag @post.image, class: 'post-image' unless @post.image.nil? %></div><br>
         <div><%= @post.content %></div>
       </div>
-        <% if @post.user == current_user %>
-          <div class="ml-auto">
-            <%= link_to 'edit', edit_post_path(@post), class: 'btn btn-outline-primary' %>
-            <%= link_to 'delete', post_path(@post), method: :delete, class: 'btn btn-outline-danger' %>
-          </div>
-        <% end %>
+      <% if @post.user == current_user %>
+        <div class="ml-auto">
+          <%= link_to 'edit', edit_post_path(@post), class: 'btn btn-outline-primary' %>
+          <%= link_to 'delete', post_path(@post), method: :delete, class: 'btn btn-outline-danger' %>
+        </div>
+      <% end %>
     </div>    
   </div>
 </div>
@@ -41,8 +41,19 @@
         </div>
       <% end %>
     </div>
-    <div class="col-sm-8">
-      <div class="comments"><%= comment.content %></div>
+    <div class="col-9">
+      <div class="row" id="<%= comment.id %>">
+        <div class="col-11">
+          <br>
+          <%= comment.content %>
+        </div>
+        <% if comment.user == current_user %>
+          <div class="ml-auto">
+            <div class="btn btn-outline-primary" id="<%= comment.id %>" value="Edit">edit</div>
+            <%= link_to 'delete', comment_path(comment), method: :delete, class: 'btn btn-outline-danger' %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>

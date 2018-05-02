@@ -1,0 +1,10 @@
+<div class="col-11">
+  <br>
+  <%= comment.content %>
+</div>
+<% if comment.user %>
+  <div class="ml-auto">
+    <div class="btn btn-outline-primary" id="<%= comment.id %>" value='Edit'>edit</div>
+    <%= link_to 'delete', comment_path(comment), method: :delete, class: 'btn btn-outline-danger' %>
+  </div>
+<% end %>

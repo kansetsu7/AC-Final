@@ -14,7 +14,13 @@ Rails.application.routes.draw do
   end
 
   resources :categories, only: :show
-  resources :comments, only: [:destroy]
+  
+  resources :comments, only: [:edit, :update, :destroy] do
+    member do
+      get :cancel
+    end
+  end
+
   resources :collects, only: [:create, :destroy]
 
   resources :users, except: :index do

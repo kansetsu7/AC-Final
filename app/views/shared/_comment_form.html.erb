@@ -1,0 +1,8 @@
+<div class="col-11">
+  <%= form_for [comment] do |f| %>
+    <%= f.text_area :content, placeholder: "add comment", class: "form-control" %>
+    <br>
+    <div class="btn btn-outline-primary" id="<%= comment.id %>" value='Cancel'>Cancel</div>
+    <%= f.submit 'Submit', class: 'round-white-btn' %>
+  <% end %>
+</div>

@@ -17,3 +17,56 @@
 //= require popper
 //= require bootstrap-sprockets
 //= require_tree .
+
+$(document).on('turbolinks:load', function(){
+  setEditClick();
+});
+
+function setEditClick() {
+  $("div.btn[value='Edit']").on('click', function(){
+    var self = this
+    var commenmt_id = $(self).parent().parent().attr('id');
+    var content = $(self).parent().parent().children('.col-11').text().trim();
+
+    console.log(commenmt_id)
+
+    $.ajax({
+      url: '/comments/' + commenmt_id + '/edit',
+      method: 'get',
+      dataType: 'json',
+      data: { 
+        id: parseInt(commenmt_id),
+        content: content
+      },
+      success: function(data){
+        $('div.row#' + commenmt_id).html(data['commentEditHtml']);
+      }
+    }).done(function(){
+      setCancelClick();
+    });  
+  }); // change comment to comment form when edit btn is clicked  
+}
+
+function setCancelClick() {
+  $("div.btn[value='Cancel']").on('click', function(){
+    console.log('zzzzzzzzz');
+    var self = this
+    var commenmt_id = $(self).attr('id');
+
+    console.log('Cancel'+commenmt_id)
+
+    $.ajax({
+      url: '/comments/' + commenmt_id + '/cancel',
+      method: 'get',
+      dataType: 'json',
+      data: { 
+        id: parseInt(commenmt_id)
+      },
+      success: function(data){
+        $('div.row#' + commenmt_id).html(data['commentCancelHtml']);
+      }
+    }).done(function(){
+      setEditClick();
+    });  
+  });
+}
