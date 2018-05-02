@@ -82,7 +82,11 @@ class PostsController < ApplicationController
       flash[:alert] = "you can't delete other's post"
     end
 
-    redirect_back(fallback_location: root_path)
+    if params[:from] == 'draft'
+      redirect_back(fallback_location: root_path)
+    else
+      redirect_to root_path
+    end
   end
 
   def feeds
