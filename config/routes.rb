@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
     resources :comments, only: [:index, :update]
     resources :collects, only: [:index]
+    resources :friendships, only: [:index]
 
     member do
       get :posts
@@ -40,7 +41,6 @@ Rails.application.routes.draw do
       post :cancel
       post :accept
       delete :ignore
-      get :check
     end
   end
 

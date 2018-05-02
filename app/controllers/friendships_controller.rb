@@ -3,7 +3,13 @@ class FriendshipsController < ApplicationController
   before_action :set_friendship ,only: [:destroy, :cancel]
   before_action :set_inverse_friendship ,only: [:create, :accept, :ignore, :destroy]
   before_action :set_target_user ,only: [:create, :destroy, :accept, :cancel, :ignore]
-  before_action :set_user ,only: [:check]
+  before_action :set_user ,only: [:index]
+
+  def index
+    @all_friends = @user.all_friends
+    @unconfirmed_friends = @user.unconfirmed_friends
+    @unconfirmed_inverse_friends = @user.unconfirmed_inverse_friends
+  end
 
   def create
     if @inverse_friendship.nil? #target didn't sent request => you can friend them
@@ -34,11 +40,6 @@ class FriendshipsController < ApplicationController
     @inverse_friendship.destroy
   end
 
-  def check
-    @unconfirmed_friends = current_user.unconfirmed_friends
-    @unconfirmed_inverse_friends = current_user.unconfirmed_inverse_friends
-  end
-
   private
 
   def friendship_params
@@ -59,7 +60,7 @@ class FriendshipsController < ApplicationController
   end
 
   def set_user
-    @user = User.find(params[:id])
+    @user = User.find(params[:user_id])
   end
 
 end

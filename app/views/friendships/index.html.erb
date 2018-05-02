@@ -1,0 +1,47 @@
+<%= render partial: "shared/user_page", locals: { user: @user, active_tab: 'friend'} %>
+<div class="row user-post-row bg-light-gray">
+  <% if @unconfirmed_friends.any? %>
+    <div class="col-12 text-center user-post-row">
+      <h4>Wating for response</h4>
+      <% @unconfirmed_friends.each do |user| %>
+        <%= link_to posts_user_path(user), class: 'user-link' do %>
+          <div class="avatar-box text-center">
+            <%= image_tag(user.avatar, class: "post-avatar") %>
+            <span><%= user.name %></span>
+          </div>        
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% if @unconfirmed_inverse_friends.any? %>
+    <div class="col-12 text-center user-post-row">
+      <% @unconfirmed_inverse_friends.each do |user| %>
+        <%= link_to posts_user_path(user), class: 'user-link' do %>
+          <div class="avatar-box text-center">
+            <%= image_tag(user.avatar, class: "post-avatar") %>
+            <span><%= user.name %></span>
+            <div class="friend-btn-box friend-btn-<%= @user.id %>">
+              <%= render partial: "shared/friend_btn", locals: { user: user} %>
+            </div>
+          </div>        
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  
+  <% if @all_friends.any? %>
+    <div class="col-12 text-center user-post-row">
+      <h4>Friends</h4>
+      <% @all_friends.each do |user| %>
+        <%= link_to posts_user_path(user), class: 'user-link' do %>
+          <div class="avatar-box text-center">
+            <%= image_tag(user.avatar, class: "post-avatar") %>
+            <span><%= user.name %></span>
+          </div>        
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<br>

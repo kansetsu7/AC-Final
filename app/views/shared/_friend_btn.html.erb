@@ -17,8 +17,12 @@
       <%= link_to 'Unfriend', friendship_path(user), method: :delete, remote: :true, class: "btn btn-outline-danger" %>
     <% else %>
       <!-- not confirmed, current_user can accept it -->
-      <%= link_to 'Accept request', accept_friendship_path(user), method: :post, remote: :true, class: "btn btn-outline-primary" %>
-      <%= link_to 'Ignore request', ignore_friendship_path(user), method: :delete, remote: :true, class: "btn btn-outline-primary" %>
+      <div class="row">
+        <%= link_to 'Accept request', accept_friendship_path(user), method: :post, remote: :true, class: "btn btn-outline-primary" %>
+      </div>
+      <div class="row">
+        <%= link_to 'Ignore request', ignore_friendship_path(user), method: :delete, remote: :true, class: "btn btn-outline-primary" %>
+      </div>
     <% end %>
 
   <% else %>  <!-- both not in friendships db -->
