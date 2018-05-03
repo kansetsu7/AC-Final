@@ -3,11 +3,18 @@ class CategoriesController < ApplicationController
   helper_method :sort_column, :sort_direction, :current_title
 
   def show
-    if sort_column == 'latest_time'
-      @posts = @category.posts.where(status: 'Published').includes('comments').order('comments.created_at '+ sort_direction).page(params[:page]).per(20) 
+    if current_user.nil?
+      @posts = @category.posts.published.where(authority: 'All')
     else
-      @posts = @category.posts.where(status: 'Published').order(sort_column + ' ' + sort_direction).page(params[:page]).per(20) 
+      @posts = @category.posts.readable_posts(current_user).published
     end
+    
+    if sort_column == 'latest_time'
+      @posts = @posts.includes('comments').order('comments.created_at ' + sort_direction).page(params[:page]).per(20)
+    else
+      @posts = @posts.order(sort_column + ' ' + sort_direction).page(params[:page]).per(20)  
+    end
+    
     @categories = Category.all
     @active_name = @category.name  
   end

@@ -4,10 +4,16 @@ class PostsController < ApplicationController
   helper_method :sort_column, :sort_direction, :current_title
 
   def index
-    if sort_column == 'latest_time'
-      @posts = Post.includes('comments').where(status: 'Published').order('comments.created_at ' + sort_direction).page(params[:page]).per(20)
+    if current_user.nil?
+      @posts = Post.published.where(authority: 'All')
     else
-      @posts = Post.where(status: 'Published').order(sort_column + ' ' + sort_direction).page(params[:page]).per(20)  
+      @posts = Post.readable_posts(current_user).published
+    end
+    
+    if sort_column == 'latest_time'
+      @posts = @posts.includes('comments').order('comments.created_at ' + sort_direction).page(params[:page]).per(20)
+    else
+      @posts = @posts.order(sort_column + ' ' + sort_direction).page(params[:page]).per(20)  
     end
     
     @categories = Category.all
@@ -16,6 +22,11 @@ class PostsController < ApplicationController
   end
 
   def show
+    unless @post.readable?(current_user)
+      flash[:alert] = "You don't have authority to see this post!"
+      redirect_back(fallback_location: root_path)
+    end
+
     @comment = Comment.new
     @collect = current_user.collects.where(post_id: @post.id).first
   end

@@ -38,7 +38,7 @@ namespace :dev do
       content: FFaker::Lorem.paragraph,
       status: 'Draft',
       title: FFaker::Lorem.phrase,
-      authority: 'Self',
+      authority: 'Myself',
       image: FFaker::Avatar.image,
       category_ids: (1...10).to_a.shuffle.take(rand(1..5))
      )
