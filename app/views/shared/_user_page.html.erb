@@ -1,7 +1,7 @@
 <div class="row bg-light-gray">
   <div class="col-sm-3">
     <div class="top-pad60">
-      <%= image_tag(user.avatar, class: "user-avatar mx-auto") %>
+      <%= image_tag(user.avatar_url, class: "user-avatar mx-auto") unless user.avatar.nil? %>
     </div>
     <div class="user-name align-top text-center">
       <span><%= user.name %></span>

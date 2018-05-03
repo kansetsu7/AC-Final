@@ -7,11 +7,13 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 #Default user: admin and guest
+url = Cloudinary::Api.resources_by_ids(["admin"])['resources'].first['url']
 User.create(
   email: "admin@example.com",
   name: "=BOSS=",
   password: "12345678",
   intro: "Who's your daddy!",
   role: "admin",
-  avatar: Cloudinary::Api.resources_by_ids(["admin"])['resources'].first['url']
 )
+
+User.find(1).update_attribute(:remote_avatar_url, url)

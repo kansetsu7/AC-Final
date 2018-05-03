@@ -3,6 +3,8 @@
     <%= f.text_field :title, class: 'form-control' %>
     <%= f.text_area :content, class: 'form-control' %>
     <br>
+    <div class="img-block"><%= image_tag @post.image_url, class: 'post-image' unless @post.image.nil? %></div>
+    <%= f.hidden_field :image_cache %>
     <%= f.file_field :image %>
     <div id="authority">
       Who can see <%= f.collection_radio_buttons :authority, %w[All Friend Myself], :to_s, :to_s %>

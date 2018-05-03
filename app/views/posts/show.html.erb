@@ -10,7 +10,7 @@
   <div class="col-3 avatar-col text-center">
     <%= link_to posts_user_path(@post.user), class: 'user-link' do %>
       <div class="avatar-box text-center">
-        <%= image_tag(@post.user.avatar, class: "post-avatar mx-auto") %>
+        <%= image_tag(@post.user.avatar_url, class: "post-avatar mx-auto") unless @post.user.avatar.nil? %>
         <span><%= @post.user.name %></span>
         <div class="friend-btn-box friend-btn-<%= @post.user.id %>">
           <%= render partial: "shared/friend_btn", locals: { user: @post.user} %>
@@ -21,7 +21,7 @@
   <div class="col-9">
     <div class="row">
       <div class="col-11">
-        <div class="img-block"><%= image_tag @post.image, class: 'post-image' unless @post.image.nil? %></div><br>
+        <div class="img-block"><%= image_tag @post.image_url, class: 'post-image' unless @post.image.nil? %></div><br>
         <div><%= @post.content %></div>
       </div>
       <% if @post.user == current_user %>
@@ -39,7 +39,7 @@
     <div class="col-sm-3 avatar-col text-center">
       <%= link_to posts_user_path(comment.user), class: 'user-link' do %>
         <div class="avatar-box text-center">
-          <%= image_tag(comment.user.avatar, class: "post-avatar mx-auto") %>
+          <%= image_tag(comment.user.avatar_url, class: "post-avatar mx-auto") unless comment.user.avatar.nil? %>
           <span><%= comment.user.name %></span>
           <div class="friend-btn-box friend-btn-<%= comment.user.id %>">
             <%= render partial: "shared/friend_btn", locals: { user: comment.user} %>

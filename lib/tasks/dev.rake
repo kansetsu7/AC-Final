@@ -10,19 +10,15 @@ namespace :dev do
 
     User.where(role: nil).destroy_all
     puts "creating fake users..."
-    # url = "https://uinames.com/api/?ext&region=england"
     for i in 1..20 do
-      # response = RestClient.get(url)
-      # data = JSON.parse(response.body)
 
       User.create!(
         email: "user#{i}@email.com",
         name: "user#{i}",
         password: '000000',
-        # avatar: data["photo"]
-        avatar: image_links[rand(0...10)],
         intro: FFaker::Lorem.paragraph
-      )      
+      )  
+      User.find(i + 1).update_attribute(:remote_avatar_url, image_links[rand(0...10)])    
     end
     puts "now you have #{User.count} user data"
   end 
@@ -52,7 +48,6 @@ namespace :dev do
       status: 'Draft',
       title: FFaker::Lorem.phrase,
       authority: 'Myself',
-      image: image_links[rand(0...10)],
       category_ids: (1...10).to_a.shuffle.take(rand(1..5))
      )
      2.times do
@@ -61,7 +56,6 @@ namespace :dev do
         status: 'Published',
         title: FFaker::Lorem.phrase,
         authority: 'All',
-        image: image_links[rand(0...10)],
         category_ids: (1...10).to_a.shuffle.take(rand(1..5))
        )
 
@@ -70,10 +64,13 @@ namespace :dev do
         status: 'Published',
         title: FFaker::Lorem.phrase,
         authority: 'Friends',
-        image: image_links[rand(0...10)],
         category_ids: (1...10).to_a.shuffle.take(rand(1..5))
        )
      end        
+    end
+
+    Post.all.each do |p|
+      p.update_attribute(:remote_image_url, image_links[rand(0...10)]) 
     end
     puts "now you have #{Post.count} posts"
   end 

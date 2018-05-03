@@ -1,5 +1,5 @@
 class Post < ApplicationRecord
-  # mount_uploader :image, PostImageUploader
+  mount_uploader :image, PostImageUploader
   before_save :check_title
   after_save :update_counter_cache
   after_destroy :update_counter_cache

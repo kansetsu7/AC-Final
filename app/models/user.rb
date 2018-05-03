@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # mount_uploader :avatar, AvatarUploader
+  mount_uploader :avatar, AvatarUploader
   has_many :posts
   has_many :drafts, -> {where status: 'Draft'}, class_name: "Post"
   has_many :published_posts, -> {where status: 'Published'}, class_name: "Post"
