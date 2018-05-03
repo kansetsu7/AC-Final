@@ -23,7 +23,7 @@ Rails.application.routes.draw do
 
   resources :collects, only: [:create, :destroy]
 
-  resources :users, except: :index do
+  resources :users, except: [:index, :show] do
 
     resources :comments, only: [:index, :update]
     resources :collects, only: [:index]

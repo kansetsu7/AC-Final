@@ -1,0 +1,10 @@
+<div >
+  <%= form_for @user do |f| %>
+    <%= f.text_field :name, class: 'form-control' %>
+    <%= f.text_area :intro, class: 'form-control' %>
+    <br>
+    <div class="img-block"><%= image_tag @user.avatar_url, class: 'post-image' unless @user.avatar.nil? %></div>
+    <%= f.file_field :avatar %>
+    <%= f.submit 'Submit' %>
+  <% end %>
+</div>
