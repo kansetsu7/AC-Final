@@ -1,4 +1,5 @@
 class FriendshipsController < ApplicationController
+  before_action :authenticate_user!
   before_action :friendship_params ,only: [:create]
   before_action :set_friendship ,only: [:destroy, :cancel]
   before_action :set_inverse_friendship ,only: [:create, :accept, :ignore, :destroy]

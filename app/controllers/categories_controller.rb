@@ -1,4 +1,5 @@
 class CategoriesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_category ,only: [:show]
   helper_method :sort_column, :sort_direction, :current_title
 

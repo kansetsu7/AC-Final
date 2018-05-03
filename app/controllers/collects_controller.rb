@@ -1,4 +1,5 @@
 class CollectsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_collect ,only: :destroy
   before_action :set_post ,only: :create
   before_action :set_user ,only: :index
