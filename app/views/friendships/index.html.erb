@@ -14,7 +14,7 @@
     </div>
   <% end %>
 
-  <% if @unconfirmed_inverse_friends.any? %>
+  <% if @unconfirmed_inverse_friends.any? || @user == current_user %>
     <div class="col-12 text-center user-post-row">
       <% @unconfirmed_inverse_friends.each do |user| %>
         <%= link_to posts_user_path(user), class: 'user-link' do %>

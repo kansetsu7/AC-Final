@@ -13,4 +13,4 @@
   </div>
 <% end %>
 <br>
-<%= link_to 'New post', new_post_path, class: 'btn btn-outline-dark lm-50', role: 'button' %>
+<%= link_to 'New post', new_post_path, class: 'btn btn-outline-dark lm-50', role: 'button' if @user == current_user %>

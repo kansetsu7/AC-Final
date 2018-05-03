@@ -1,11 +1,8 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:posts, :drafts, :edit, :update]
+  before_action :check_user, only: [:drafts, :edit, :update]
 
   def edit
-    unless @user == current_user
-      flash[:alert] = "You can't edit other's profile!"
-      redirect_back(fallback_location: root_path)
-    end
   end
 
   def update
@@ -35,5 +32,12 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :intro, :avatar)
+  end
+
+  def check_user
+    unless @user == current_user
+      flash[:alert] = "You don't have authority!"
+      redirect_back(fallback_location: root_path)
+    end
   end
 end

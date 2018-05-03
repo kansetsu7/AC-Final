@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :check_authority, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column, :sort_direction, :current_title
 
   def index
@@ -22,11 +23,6 @@ class PostsController < ApplicationController
   end
 
   def show
-    unless @post.readable?(current_user)
-      flash[:alert] = "You don't have authority to see this post!"
-      redirect_back(fallback_location: root_path)
-    end
-
     @comment = Comment.new
     @collect = current_user.collects.where(post_id: @post.id).first
   end
@@ -141,6 +137,13 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:title, :content, :status, :authority, :image, category_ids:[])
+  end
+
+  def check_authority
+    unless @post.readable?(current_user)
+      flash[:alert] = "You don't have authority to see this post!"
+      redirect_back(fallback_location: root_path)
+    end
   end
 
 end

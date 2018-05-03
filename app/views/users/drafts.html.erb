@@ -2,7 +2,7 @@
 <% @drafts.each do |draft| %>
   <div class="row user-post-row bg-light-gray">
     <div class="col-sm-6">
-      <span class="lm-65 post-title"><%= link_to draft.title, post_path(draft) %></span>
+      <span class="lm-65 post-title"><%= draft.title %></span>
     </div>
     <div class="col-sm-2">
       <span><%= draft.status %></span>
