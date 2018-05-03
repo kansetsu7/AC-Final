@@ -46,5 +46,9 @@ class User < ApplicationRecord
   def all_friends()
     # (self.inverse_friends + self.friends).uniq
     self.confirmed_friends + self.confirmed_inverse_friends
+  end
+
+  def admin?
+    self.role == 'admin'
   end 
 end

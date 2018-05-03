@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-12">
+    <ul class="nav">
+      <li class="nav-item">
+        <%= link_to 'Category List', admin_categories_path, class: 'nav-link underline-nav active' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'User List', admin_users_path, class: 'nav-link underline-nav' %>
+      </li>
+    </ul>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-12">
+    <%= form_for [:admin, @category], html: {class: "form-inline"} do |f| %>
+        <%= f.text_field :name, class: 'form-control  mb-2 mr-sm-2', placeholder: 'Category Name' %>
+        <%= f.submit 'Create' %>
+    <% end %>
+      
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col">
+    <table class="table table-bordered">
+      <tr>
+        <td class="bg-light-gray">Name</td>
+        <td class="bg-light-gray"></td>
+      </tr>
+      <% @categories.each do |category| %>
+        <tr>
+          <td><%= category.name %></td>
+          <td>
+            <%= link_to 'Edit', admin_categories_path(id: category.id), :class => "btn btn-default" %>
+            <%= link_to 'Delete', admin_category_path(category), method: :delete, data:{confirm:"Are you sure?"}, :class => "btn btn-danger" unless category.posts.any? %>
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>

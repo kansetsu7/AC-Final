@@ -109,3 +109,12 @@ span.post-title a {
   padding: 0.5rem;
   border: 1px solid black;
 }
+
+.underline-nav {
+  color: black;
+  font-size: 2rem;
+}
+
+.underline-nav.active {
+  border-bottom: 1px solid black;
+}
