@@ -2,6 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :check_authority, only: [:show, :edit, :update, :destroy]
+  before_action :set_view, only: :show
   helper_method :sort_column, :sort_direction, :current_title
 
   def index
@@ -144,6 +145,11 @@ class PostsController < ApplicationController
       flash[:alert] = "You don't have authority to see this post!"
       redirect_back(fallback_location: root_path)
     end
+  end
+
+  def set_view
+    puts "post #{@post} viewed? : #{@post.viewed?(current_user)}"
+    @post.views.create!(user: current_user) unless @post.viewed?(current_user)
   end
 
 end

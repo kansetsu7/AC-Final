@@ -8,6 +8,7 @@ class Post < ApplicationRecord
   has_many :comments
   has_many :replied_users, through: :comments, source: :user
   has_many :views
+  has_many :viewers, through: :views, source: :user
   scope :published, -> {where(status: 'Published')}
 
   def create_date
@@ -29,5 +30,9 @@ class Post < ApplicationRecord
 
   def readable?(user)
     Post.readable_posts(user).published.include?(self)
+  end
+
+  def viewed?(user)
+    self.viewers.include?(user)
   end
 end

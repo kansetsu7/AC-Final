@@ -71,6 +71,7 @@ namespace :dev do
 
     Post.all.each do |p|
       p.update_attribute(:remote_image_url, image_links[rand(0...10)]) 
+      p.views.create!(user: p.user)
     end
     puts "now you have #{Post.count} posts"
   end 
@@ -81,13 +82,16 @@ namespace :dev do
     puts "creating fake comments..."
     Post.where(status: 'Published').each do |p|
       rand(1..5).times do
+        user = User.all.sample
         p.comments.create!(
           content: FFaker::Lorem.paragraph,
-          user: User.all.sample
+          user: user
         )
+
+        p.views.create!(user: user) unless p.viewed?(user)
       end
     end
-    puts "now you have #{Comment.count} comments"
+    puts "now you have #{Comment.count} comments and #{View.count} views"
   end
 
   # fake view
@@ -97,9 +101,7 @@ namespace :dev do
     Post.all.each do |p|
       @users = User.all.shuffle
       rand(0..5).times do
-        p.views.create!(
-          user: @users.pop
-        )
+        
       end
     end
     puts "now you have #{View.count} views"
@@ -175,7 +177,6 @@ namespace :dev do
     (1..10).each do |i|
       pics.push("pic#{i}")
     end
-puts pics
     image_links =  Cloudinary::Api.resources_by_ids(pics)['resources'].map{|resource| resource['url']}
     puts image_links
   end
@@ -190,7 +191,6 @@ puts pics
     Rake::Task['dev:fake_category'].execute
     Rake::Task['dev:fake_post'].execute
     Rake::Task['dev:fake_comment'].execute
-    Rake::Task['dev:fake_view'].execute
     Rake::Task['dev:fake_collect'].execute
     Rake::Task['dev:fake_friendship'].execute
   end
