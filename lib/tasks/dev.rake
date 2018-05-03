@@ -1,6 +1,13 @@
 namespace :dev do
   # fake user
   task fake_user: :environment do
+
+    ids = []
+    (1..10).each do |i|
+      ids.push("avatar#{i}")
+    end
+    image_links =  Cloudinary::Api.resources_by_ids(ids)['resources'].map{|resource| resource['url']}
+
     User.where(role: nil).destroy_all
     puts "creating fake users..."
     # url = "https://uinames.com/api/?ext&region=england"
@@ -13,7 +20,7 @@ namespace :dev do
         name: "user#{i}",
         password: '000000',
         # avatar: data["photo"]
-        avatar: FFaker::Avatar.image,
+        avatar: image_links[rand(0...10)],
         intro: FFaker::Lorem.paragraph
       )      
     end
@@ -31,6 +38,12 @@ namespace :dev do
 
   #fake post
   task fake_post: :environment do
+    pics = []
+    (1..10).each do |i|
+      pics.push("pic#{i}")
+    end
+    image_links =  Cloudinary::Api.resources_by_ids(pics)['resources'].map{|resource| resource['url']}
+
     Post.destroy_all
     puts "creating fake posts..."    
     User.all.each do |u|
@@ -39,7 +52,7 @@ namespace :dev do
       status: 'Draft',
       title: FFaker::Lorem.phrase,
       authority: 'Myself',
-      image: FFaker::Avatar.image,
+      image: image_links[rand(0...10)],
       category_ids: (1...10).to_a.shuffle.take(rand(1..5))
      )
      2.times do
@@ -48,7 +61,7 @@ namespace :dev do
         status: 'Published',
         title: FFaker::Lorem.phrase,
         authority: 'All',
-        image: FFaker::Avatar.image,
+        image: image_links[rand(0...10)],
         category_ids: (1...10).to_a.shuffle.take(rand(1..5))
        )
 
@@ -57,7 +70,7 @@ namespace :dev do
         status: 'Published',
         title: FFaker::Lorem.phrase,
         authority: 'Friends',
-        image: FFaker::Avatar.image,
+        image: image_links[rand(0...10)],
         category_ids: (1...10).to_a.shuffle.take(rand(1..5))
        )
      end        
@@ -157,13 +170,22 @@ namespace :dev do
   end 
 
   task test: :environment do
-    posts = Post.includes(:comments).all.order('comments.created_at asc')
-    puts posts.first.inspect
-    puts posts.last.inspect
+    a1 = ["pic1"]
+    puts a1
+    puts Cloudinary::Api.resources_by_ids(a1)['resources'].first['url']
+
+    pics = []
+    (1..10).each do |i|
+      pics.push("pic#{i}")
+    end
+puts pics
+    image_links =  Cloudinary::Api.resources_by_ids(pics)['resources'].map{|resource| resource['url']}
+    puts image_links
   end
 
   #fake all data
   task fake_all: :environment do
+    # Rake::Task['dev:test'].execute
     Rake::Task['db:drop'].execute
     Rake::Task['db:migrate'].execute
     Rake::Task['db:seed'].execute

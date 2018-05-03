@@ -38,6 +38,7 @@ gem 'jquery-rails'
 gem 'rest-client'
 gem 'kaminari'
 gem "font-awesome-sass"
+gem 'cloudinary'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

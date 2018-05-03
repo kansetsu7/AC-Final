@@ -13,5 +13,5 @@ User.create(
   password: "12345678",
   intro: "Who's your daddy!",
   role: "admin",
-  avatar: FFaker::Avatar.image
+  avatar: Cloudinary::Api.resources_by_ids(["admin"])['resources'].first['url']
 )
