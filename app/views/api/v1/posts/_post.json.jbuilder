@@ -1,0 +1,1 @@
+json.(post, :id, :user_id, :title, :content, :status, :authority, :image, :category_ids)

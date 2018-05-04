@@ -2,9 +2,6 @@ class Api::V1::PostsController < ApiController
   before_action :set_post, only: [:update, :destroy]
   def index
     @posts = Post.all
-    render json: {
-      data: @posts
-    }
   end
 
   def show
@@ -15,9 +12,7 @@ class Api::V1::PostsController < ApiController
         status: 400
       }
     else
-      render json: {
-        data: @post
-      }
+      render 'api/v1/posts/show'
     end
   end
 
