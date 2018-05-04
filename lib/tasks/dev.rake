@@ -16,7 +16,8 @@ namespace :dev do
         email: "user#{i}@email.com",
         name: "user#{i}",
         password: '000000',
-        intro: FFaker::Lorem.paragraph
+        intro: FFaker::Lorem.paragraph,
+        role: 'normal'
       )  
       User.find(i + 1).update_attribute(:remote_avatar_url, image_links[rand(0...10)])    
     end

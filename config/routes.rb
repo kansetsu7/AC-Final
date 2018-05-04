@@ -47,6 +47,6 @@ Rails.application.routes.draw do
   namespace :admin do
     root "categories#index"
     resources :categories
-    resources :users
+    resources :users, only: [:index, :update]
   end
 end

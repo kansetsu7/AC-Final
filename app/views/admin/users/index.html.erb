@@ -1,0 +1,38 @@
+<br>
+<div class="row">
+  <div class="col-12">
+    <ul class="nav">
+      <li class="nav-item">
+        <%= link_to 'Category List', admin_categories_path, class: 'nav-link underline-nav' %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'User List', admin_users_path, class: 'nav-link underline-nav active' %>
+      </li>
+    </ul>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col">
+    <table class="table table-bordered">
+      <tr>
+        <td class="bg-light-gray">Name</td>
+        <td class="bg-light-gray">Email</td>
+        <td class="bg-light-gray">Role</td>
+      </tr>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= link_to user.name, posts_user_path(user) %></td>
+          <td><%= user.email %></td>
+          <td>
+            <%= form_for [:admin, user] do |f| %>
+              <%= f.select(:role, [['Admin', 'admin'], ['Normal', 'normal']]) %>
+              <%= f.submit 'Update', :class => "btn btn-outline-primary" %>
+            <% end %>              
+          </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
+<%= paginate @users %>

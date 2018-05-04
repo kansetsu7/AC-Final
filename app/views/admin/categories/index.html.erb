@@ -15,7 +15,7 @@
   <div class="col-12">
     <%= form_for [:admin, @category], html: {class: "form-inline"} do |f| %>
         <%= f.text_field :name, class: 'form-control  mb-2 mr-sm-2', placeholder: 'Category Name' %>
-        <%= f.submit 'Create' %>
+        <%= f.submit 'Create', :class => "btn btn-outline-primary" %>
     <% end %>
       
   </div>
@@ -32,8 +32,8 @@
         <tr>
           <td><%= category.name %></td>
           <td>
-            <%= link_to 'Edit', admin_categories_path(id: category.id), :class => "btn btn-default" %>
-            <%= link_to 'Delete', admin_category_path(category), method: :delete, data:{confirm:"Are you sure?"}, :class => "btn btn-danger" unless category.posts.any? %>
+            <%= link_to 'Edit', admin_categories_path(id: category.id), :class => "btn btn-outline-primary" %>
+            <%= link_to 'Delete', admin_category_path(category), method: :delete, data:{confirm:"Are you sure?"}, :class => "btn btn-outline-danger" unless category.posts.any? %>
           </td>
         </tr>
       <% end %>
