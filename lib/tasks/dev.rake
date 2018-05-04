@@ -10,7 +10,7 @@ namespace :dev do
 
     User.where(role: nil).destroy_all
     puts "creating fake users..."
-    for i in 1..20 do
+    for i in 1..10 do
 
       User.create!(
         email: "user#{i}@email.com",
@@ -19,7 +19,7 @@ namespace :dev do
         intro: FFaker::Lorem.paragraph,
         role: 'normal'
       )  
-      User.find(i + 1).update_attribute(:remote_avatar_url, image_links[rand(0...10)])    
+      User.find(i + 1).update_attribute(:remote_avatar_url, image_links[i - 1])    
     end
     puts "now you have #{User.count} user data"
   end 
