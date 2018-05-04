@@ -11,7 +11,8 @@
 }
 
 .post-avatar {
-  max-height: 100px;
+  /*max-height: 100px;*/
+  max-width: 80%;
   display: block;
 }
 
@@ -20,7 +21,8 @@
 }
 
 .post-image {
-  max-height:  300px;
+  max-width: 100%;
+  height: auto;
 }
 
 .bg-light-gray {
@@ -117,4 +119,8 @@ span.post-title a {
 
 .underline-nav.active {
   border-bottom: 1px solid black;
+}
+
+.img-block {
+  max-width: 100%;
 }

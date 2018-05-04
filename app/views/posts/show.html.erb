@@ -36,7 +36,7 @@
 
 <% @post.comments.each do |comment| %>
   <div class="row post-row bg-light-gray">
-    <div class="col-sm-3 avatar-col text-center">
+    <div class="col-3 avatar-col text-center">
       <%= link_to posts_user_path(comment.user), class: 'user-link' do %>
         <div class="avatar-box text-center">
           <%= image_tag(comment.user.avatar_url, class: "post-avatar mx-auto") unless comment.user.avatar.nil? %>

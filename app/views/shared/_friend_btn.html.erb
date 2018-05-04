@@ -7,7 +7,9 @@
       <%= link_to 'Unfriend', friendship_path(user), method: :delete, remote: :true, class: "btn btn-outline-danger text" %>
     <% else %>
       <!-- not confirmed, current_user can cancel it -->
-      <%= link_to 'Cancel request', cancel_friendship_path(user), method: :post, remote: :true, class: "btn btn-outline-primary" %>
+      <%= link_to cancel_friendship_path(user), method: :post, remote: :true, class: "btn btn-outline-primary" do %>
+        Cancel<br>request
+      <% end %>
     <% end %>
 
   <% elsif current_user.inverse_friend?(user) %>   <!-- current_user got friend request form target-->
