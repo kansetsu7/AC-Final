@@ -1,7 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :check_authority, only: [:show, :edit, :update, :destroy]
+  before_action :check_authority, only: [:show, :update, :destroy]
   before_action :set_view, only: :show
   helper_method :sort_column, :sort_direction, :current_title
 
@@ -34,6 +34,7 @@ class PostsController < ApplicationController
   end
 
   def edit
+    redirect_back(fallback_location: root_path) unless @post.user == current_user
   end
 
   def update

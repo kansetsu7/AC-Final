@@ -25,11 +25,11 @@ class Post < ApplicationRecord
   end
 
   def self.readable_posts(user)
-    Post.where(authority: "Friend", user: user.all_friends).or( where(authority: "All")).or(where(authority: "Myself", user: user)).or(where( user: user))
+    Post.where(authority: "Friend", user: user.all_friends).published.or( where(authority: "All").published).or(where( user: user))
   end
 
   def readable?(user)
-    Post.readable_posts(user).published.include?(self)
+    Post.readable_posts(user).include?(self)
   end
 
   def viewed?(user)
