@@ -4,6 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  before_create :generate_authentication_token
+
   mount_uploader :avatar, AvatarUploader
   has_many :posts
   has_many :drafts, -> {where status: 'Draft'}, class_name: "Post"
@@ -26,6 +28,10 @@ class User < ApplicationRecord
   has_many :unconfirmed_inverse_friendships, -> {where status: 'unconfirmed'}, class_name: "Friendship", foreign_key: "friend_id"
   has_many :confirmed_inverse_friends, through: :confirmed_inverse_friendships, source: :user
   has_many :unconfirmed_inverse_friends, through: :unconfirmed_inverse_friendships, source: :user
+
+  def generate_authentication_token
+     self.authentication_token = Devise.friendly_token
+  end
 
   def friend?(user)
     self.friends.include?(user)
