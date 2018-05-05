@@ -185,7 +185,7 @@ namespace :dev do
   #fake all data
   task fake_all: :environment do
     # Rake::Task['dev:test'].execute
-    Rake::Task['db:drop'].execute
+    # Rake::Task['db:drop'].execute
     Rake::Task['db:migrate'].execute
     Rake::Task['db:seed'].execute
     Rake::Task['dev:fake_user'].execute
