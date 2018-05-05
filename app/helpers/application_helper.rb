@@ -26,4 +26,8 @@ module ApplicationHelper
     puts "post_id: #{post.id}"
     post.comments == [] ? 'No reply' : post.comments.latest_time
   end
+
+  def show_user_name(user)
+    (user.name.nil? || user.name == '') ? 'no name' : user.name
+  end
 end

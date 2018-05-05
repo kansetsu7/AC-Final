@@ -11,7 +11,7 @@
     <%= link_to posts_user_path(@post.user), class: 'user-link' do %>
       <div class="avatar-box text-center">
         <%= image_tag(@post.user.avatar_url, class: "post-avatar mx-auto") unless @post.user.avatar.nil? %>
-        <span><%= @post.user.name %></span>
+        <span><%= show_user_name(@post.user) %></span>
         <div class="friend-btn-box friend-btn-<%= @post.user.id %>">
           <%= render partial: "shared/friend_btn", locals: { user: @post.user} %>
         </div>
@@ -38,7 +38,7 @@
       <%= link_to posts_user_path(comment.user), class: 'user-link' do %>
         <div class="avatar-box text-center">
           <%= image_tag(comment.user.avatar_url, class: "post-avatar mx-auto") unless comment.user.avatar.nil? %>
-          <span><%= comment.user.name %></span>
+          <span><%= show_user_name(comment.user) %></span>
           <div class="friend-btn-box friend-btn-<%= comment.user.id %>">
             <%= render partial: "shared/friend_btn", locals: { user: comment.user} %>
           </div>

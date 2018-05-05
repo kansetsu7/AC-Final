@@ -4,7 +4,7 @@
       <%= image_tag(user.avatar_url, class: "user-avatar mx-auto") unless user.avatar.nil? %>
     </div>
     <div class="user-name align-top text-center">
-      <span><%= user.name %></span>
+      <span><%= show_user_name(user) %></span>
       <div class="friend-btn-box friend-btn-<%= user.id %>">
         <%= render partial: "shared/friend_btn", locals: { user: user} %>
       </div>

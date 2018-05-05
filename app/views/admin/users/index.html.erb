@@ -22,7 +22,7 @@
       </tr>
       <% @users.each do |user| %>
         <tr>
-          <td><%= link_to user.name, posts_user_path(user) %></td>
+          <td><%= link_to show_user_name(user), posts_user_path(user) %></td>
           <td><%= user.email %></td>
           <td>
             <%= form_for [:admin, user] do |f| %>
