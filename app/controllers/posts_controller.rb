@@ -84,7 +84,7 @@ class PostsController < ApplicationController
 
   def destroy
 
-    if @post.user == current_user
+    if @post.user == current_user || current_user.admin?
       @post.destroy
       flash[:alert] = 'post was deleted!'
     else

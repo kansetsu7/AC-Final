@@ -24,12 +24,10 @@
         <div class="img-block"><%= image_tag @post.image_url, class: 'post-image' unless @post.image.nil? %></div><br>
         <div><%= @post.content %></div>
       </div>
-      <% if @post.user == current_user %>
-        <div class="ml-auto">
-          <%= link_to 'edit', edit_post_path(@post), class: 'btn btn-outline-primary' %>
-          <%= link_to 'delete', post_path(@post), method: :delete, class: 'btn btn-outline-danger' %>
-        </div>
-      <% end %>
+      <div class="ml-auto">
+        <%= link_to 'edit', edit_post_path(@post), class: 'btn btn-outline-primary' if @post.user == current_user %>
+        <%= link_to 'delete', post_path(@post), method: :delete, class: 'btn btn-outline-danger' if @post.user == current_user || current_user.admin?%>
+      </div>
     </div>    
   </div>
 </div>
