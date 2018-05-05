@@ -5,7 +5,11 @@
     </div>
     <div class="user-name align-top text-center">
       <span><%= user.name %></span>
+      <div class="friend-btn-box friend-btn-<%= user.id %>">
+        <%= render partial: "shared/friend_btn", locals: { user: user} %>
+      </div>
     </div>
+    
   </div>
   <div class="col-sm-9">
     <div class="top-pad60"><%= user.intro %></div>
